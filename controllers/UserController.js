@@ -1,5 +1,6 @@
 import CreateNewError from "../middlewares/errorHandling.js";
 import User from "../models/User.js";
+import Video from "../models/Video.js";
 
 const UserController = {
     UpdateUser: async (req, res, next) => {
@@ -35,6 +36,7 @@ const UserController = {
         try {
             const user = await User.findById(req.params.id);
             if (!user) return next(CreateNewError(404, "Not Found"));
+            const { password, updatedAt, ...other } = user._doc;
             res.status(200).json(user);
         } catch (error) {
             return next(error);
@@ -68,16 +70,28 @@ const UserController = {
     },
     Like: async (req, res, next) => {
         try {
-            res.send({ message: "hello" });
+            const VideoId = req.params.videoId;
+            const UserId = req.user.id;
+            await Video.findByIdAndUpdate(VideoId, {
+                $addToSet: { likes: UserId },
+                $pull: { dislikes: UserId }
+            });
+            res.status(200).json({message:"Like Successfully"});
         } catch (error) {
-            res.send
+            return next(error);
         }
     },
     DisLike: async (req, res, next) => {
         try {
-            res.send({ message: "hello" });
+            const VideoId = req.params.videoId;
+            const UserId = req.user.id;
+            await Video.findByIdAndUpdate(VideoId, {
+                $addToSet: { dislikes: UserId },
+                $pull: { likes: UserId }
+            });
+            res.status(200).json({message:"DisLike Successfully"});
         } catch (error) {
-            res.send
+            return next(error);
         }
     }
 }

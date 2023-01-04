@@ -5,11 +5,11 @@ import jwt from 'jsonwebtoken'
 const AuthController = {
     signUp: async (req, res, next) => {
         try {
-            const { name, email, password } = req.body;
+            const { name, email, password,img } = req.body;
             const salt = bcrypt.genSaltSync(10);
             const hashPassword = bcrypt.hashSync(password, salt);
             const newUser = new User({
-                name, email, password: hashPassword
+                name, email, password: hashPassword,img
             });
             await newUser.save();
             res.status(200).send('User Created');
@@ -35,7 +35,7 @@ const AuthController = {
             res.cookie("access_token", token, {
                 httpOnly: true,
             }).status(200).json(others);
-
+            // next();
         } catch (error) {
             next(error);
         }
