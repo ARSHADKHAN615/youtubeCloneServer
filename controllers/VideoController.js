@@ -75,7 +75,7 @@ const VideoController = {
     },
     Random: async (req, res, next) => {
         try {
-            const videos = await Video.aggregate([{ $sample: { size: 40 } }])
+            const videos = await Video.aggregate([{ $sample: { size: 1 } }])
             if (!videos) return next(CreateNewError(404, "Video Not Found"));
             res.status(200).json(videos);
         } catch (error) {
