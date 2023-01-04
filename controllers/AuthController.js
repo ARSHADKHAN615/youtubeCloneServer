@@ -34,6 +34,8 @@ const AuthController = {
 
             res.cookie("access_token", token, {
                 httpOnly: true,
+                secure: true,
+                sameSite: "none",
             }).status(200).json(others);
             // next();
         } catch (error) {
