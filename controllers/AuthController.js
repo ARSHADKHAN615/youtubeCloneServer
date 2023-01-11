@@ -1,7 +1,9 @@
-import User from '../models/User.js'
-import bcrypt from 'bcryptjs'
-import CreateNewError from '../middlewares/errorHandling.js';
-import jwt from 'jsonwebtoken'
+const User = require('../models/User.js');
+const bcrypt = require('bcryptjs');
+const CreateNewError = require('../middlewares/errorHandling.js');
+const jwt = require('jsonwebtoken');
+
+
 const AuthController = {
     signUp: async (req, res, next) => {
         try {
@@ -84,4 +86,4 @@ const AuthController = {
     },
 
 }
-export default AuthController;
+module.exports = AuthController;

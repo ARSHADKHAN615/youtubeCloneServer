@@ -1,10 +1,11 @@
-import express from 'express';
-import dotenv from "dotenv";
-import connectDB from './database.js';
-import routes from './routes/index.js';
-import AuthRoutes from './routes/auth.js'
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
+const express = require('express');
+const dotenv = require("dotenv");
+const connectDB = require('./database.js');
+const routes = require('./routes/index.js');
+const AuthRoutes = require('./routes/auth.js')
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
 const corsOptions = {
     origin: true, //included origin as true
     credentials: true, //included credentials as true

@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import UserController from '../controllers/UserController.js';
-import VideoController from '../controllers/VideoController.js';
-import verifyToke from '../middlewares/authHandler.js';
-import CommentController from '../controllers/CommentController.js';
-const router = Router();
+const express = require('express');
+const UserController = require('../controllers/UserController.js');
+const VideoController = require('../controllers/VideoController.js');
+const verifyToke = require('../middlewares/authHandler.js');
+const CommentController = require('../controllers/CommentController.js');
+const router = express.Router();
 
 //User Routes
 router.put('/user/:id', verifyToke, UserController.UpdateUser);
@@ -33,4 +33,4 @@ router.post(prefix2, verifyToke, CommentController.createComment);
 router.delete(prefix2 + ":userId", verifyToke, CommentController.DeleteComment);
 router.get(prefix2 + ":videoId", CommentController.GetComment);
 
-export default router;
+module.exports = router;

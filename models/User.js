@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
@@ -10,4 +10,4 @@ const UserSchema = new mongoose.Schema({
     formGoogle: { type: Boolean, default: false },
 }, { timestamps: true });
 
-export default mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);

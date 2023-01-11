@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const CommentSchema = new mongoose.Schema({
     userId: { type: String, required: true },
@@ -6,4 +6,4 @@ const CommentSchema = new mongoose.Schema({
     des: { type: String, required: true },
 }, { timestamps: true });
 
-export default mongoose.model("Comment", CommentSchema);
+module.exports = mongoose.model("Comment", CommentSchema);
