@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken'  
-import CreateNewError from '../middlewares/errorHandling.js';
+const jwt = require('jsonwebtoken');
+const CreateNewError = require('../middlewares/errorHandling.js');
 
 const verifyToke = (req,res,next)=>{
     const token = req.cookies.access_token;
@@ -12,4 +12,4 @@ const verifyToke = (req,res,next)=>{
     })
 }
 
-export default verifyToke;
+module.exports = verifyToke;

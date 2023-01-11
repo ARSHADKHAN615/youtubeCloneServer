@@ -1,6 +1,6 @@
-import CreateNewError from "../middlewares/errorHandling.js";
-import User from "../models/User.js";
-import Video from "../models/Video.js";
+const CreateNewError = require('../middlewares/errorHandling.js');
+const User = require('../models/User.js');
+const Video = require('../models/Video.js');
 
 const VideoController = {
     createVideo: async (req, res, next) => {
@@ -117,4 +117,4 @@ const VideoController = {
         }
     },
 }
-export default VideoController;
+module.exports = VideoController;
