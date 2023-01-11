@@ -37,7 +37,7 @@ const UserController = {
             const user = await User.findById(req.params.id);
             if (!user) return next(CreateNewError(404, "Not Found"));
             const { password, updatedAt, ...other } = user._doc;
-            res.status(200).json(user);
+            res.status(200).json(other);
         } catch (error) {
             return next(error);
         }

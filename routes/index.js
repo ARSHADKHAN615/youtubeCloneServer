@@ -9,10 +9,10 @@ const router = Router();
 router.put('/user/:id', verifyToke, UserController.UpdateUser);
 router.delete('/user/:id', verifyToke, UserController.DeleteUser);
 router.get('/user/find/:id', UserController.GetUser);
-router.put('/sub/:id', verifyToke, UserController.Subscribe);
-router.put('/unSub/:id', verifyToke, UserController.UnSubscribe);
-router.put('/like/:videoId', verifyToke, UserController.Like);
-router.put('/dislike/:videoId', verifyToke, UserController.DisLike);
+router.put('/user/sub/:id', verifyToke, UserController.Subscribe);
+router.put('/user/unSub/:id', verifyToke, UserController.UnSubscribe);
+router.put('/user/like/:videoId', verifyToke, UserController.Like);
+router.put('/user/dislike/:videoId', verifyToke, UserController.DisLike);
 
 // Videos Routes
 const prefix = "/video/";

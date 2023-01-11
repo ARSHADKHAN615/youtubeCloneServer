@@ -33,7 +33,7 @@ const CommentController = {
         try {
             const comments = await Comment.find({ videoId: req.params.videoId});
             if (!comments) return next(CreateNewError(404, "Video Not Found"));
-            res.status(200).json(comments);
+            res.status(200).json(comments.sort((a, b) => b.createdAt - a.createdAt));
         } catch (error) {
             return next(error);
         }
