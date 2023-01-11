@@ -8,6 +8,5 @@ router.post('/signup', AuthController.signUp);
 router.post('/signin', AuthController.signIn);
 router.post('/google', AuthController.googleSignIn);
 router.get('/authUser', verifyToke, AuthController.getAuthUser);
-// router.post('/google', AuthController.addUser);
 
 export default router;
