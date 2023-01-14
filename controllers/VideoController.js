@@ -56,8 +56,14 @@ const VideoController = {
     },
     addView: async (req, res, next) => {
         try {
-            await Video.findByIdAndUpdate(req.user.id, {
-                $inc: { views: 1 }
+            // await Video.findByIdAndUpdate(req.user.id, {
+            //     $inc: { views: 1 }
+            // });
+            // res.status(200).json({ message: "views are added" });
+            const VideoId = req.params.videoId;
+            const UserId = req.user.id;
+            await Video.findByIdAndUpdate(VideoId, {
+                $addToSet: { views: UserId },
             });
             res.status(200).json({ message: "views are added" });
         } catch (error) {

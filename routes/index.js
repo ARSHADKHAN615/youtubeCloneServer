@@ -20,7 +20,7 @@ router.post(prefix, verifyToke, VideoController.createVideo);
 router.put(prefix + ":id", verifyToke, VideoController.UpdateVideo);
 router.delete(prefix + ":id", verifyToke, VideoController.DeleteVideo);
 router.get(prefix + "find/:id", VideoController.GetVideo);
-router.put(prefix + "view/:id", VideoController.addView);
+router.put(prefix + "view/:videoId",verifyToke, VideoController.addView);
 router.get(prefix + "trend", VideoController.Trending);
 router.get(prefix + "random", VideoController.Random);
 router.get(prefix + "sub",verifyToke, VideoController.SubscribedVideo);

@@ -10,7 +10,7 @@ const corsOptions = {
     origin: true, //included origin as true
     credentials: true, //included credentials as true
 };
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5173;
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
