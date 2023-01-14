@@ -5,9 +5,33 @@ const jwt = require('jsonwebtoken');
 
 
 const AuthController = {
+    usernameExist: async (req, res, next) => {
+        try {
+            const name = req.params.username;
+            const user = await User.findOne({ name });
+            if (user) return next(CreateNewError(400, "Username Not available"));
+            res.status(200).json({ message: "Username available" });
+        } catch (error) {
+            next(error);
+        }
+    },
+    emailExist: async (req, res, next) => {
+        try {
+            const email = req.params.email;
+            const user = await User.findOne({ email });
+            if (user) return next(CreateNewError(400, "Email Already Exist"));
+            res.status(200).json({ message: "Email Not Exist" });
+        } catch (error) {
+            next(error);
+        }
+    },
     signUp: async (req, res, next) => {
         try {
             const { name, email, password, img } = req.body;
+            // check user name and email exist
+            const user = await User.findOne({ $or: [{ name }, { email }] });
+            if (user) return next(CreateNewError(400, "Username or Email Already Exist"));
+
             const salt = bcrypt.genSaltSync(10);
             const hashPassword = bcrypt.hashSync(password, salt);
             const newUser = new User({
@@ -83,6 +107,10 @@ const AuthController = {
         } catch (error) {
             next(error);
         }
+    },
+    logout: async (req, res, next) => {
+        res.clearCookie("access_token", { path: '/' })
+        res.status(200).json({ message: "Logout Successfully" });
     },
 
 }
