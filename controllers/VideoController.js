@@ -72,7 +72,7 @@ const VideoController = {
     },
     Trending: async (req, res, next) => {
         try {
-            const videos = await Video.find().sort({ views: -1 });
+            const videos = await Video.find().sort({ 'views.length': -1 }).limit(20);
             if (!videos) return next(CreateNewError(404, "Video Not Found"));
             res.status(200).json(videos);
         } catch (error) {
