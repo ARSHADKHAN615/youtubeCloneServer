@@ -6,7 +6,7 @@ const connectDB = async () => {
     const url = process.env.DB_URL;
     mongoose.set("strictQuery", false);
 
-    await mongoose.connect(`mongodb+srv://${username}:${password}@${url}/?retryWrites=true&w=majority`, {
+    await mongoose.connect(`mongodb+srv://${username}:${password}@${url}/youtubeClone?retryWrites=true&w=majority`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
