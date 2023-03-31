@@ -9,6 +9,7 @@ const corsOptions = {
     origin: true, //included origin as true
     credentials: true, //included credentials as true
 };
+const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
@@ -28,7 +29,7 @@ app.use((err, req, res, next) => {
     return res.status(status).json({ success: false, status, message });
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     connectDB();
     console.log('Server is running on port 3000');
 });
