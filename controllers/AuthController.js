@@ -60,13 +60,8 @@ const AuthController = {
 
             res.cookie("access_token", token, {
                 httpOnly: true,
-<<<<<<< HEAD
-                sameSite: "none",
-                secure: true,
-=======
                 secure: true,
                 sameSite: "none",
->>>>>>> 057477d474577da428632aa7c2891be1137b4d2a
             }).status(200).json(others);
             // next();
         } catch (error) {
