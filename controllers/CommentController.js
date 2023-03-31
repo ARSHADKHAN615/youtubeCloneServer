@@ -1,7 +1,6 @@
-import CreateNewError from "../middlewares/errorHandling.js";
-import User from "../models/User.js";
-import Video from "../models/Video.js";
-import Comment from "../models/Comment.js";
+const CreateNewError = require('../middlewares/errorHandling.js');
+const Comment = require('../models/Comment.js');
+const Video = require('../models/Video.js');
 
 const CommentController = {
     createComment: async (req, res, next) => {
@@ -33,10 +32,10 @@ const CommentController = {
         try {
             const comments = await Comment.find({ videoId: req.params.videoId});
             if (!comments) return next(CreateNewError(404, "Video Not Found"));
-            res.status(200).json(comments);
+            res.status(200).json(comments.sort((a, b) => b.createdAt - a.createdAt));
         } catch (error) {
             return next(error);
         }
     },
 }
-export default CommentController;
+module.exports = CommentController;

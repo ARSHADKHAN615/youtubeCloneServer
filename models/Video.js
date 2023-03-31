@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const VideoSchema = new mongoose.Schema({
     userId: { type: String, required: true },
@@ -6,10 +6,10 @@ const VideoSchema = new mongoose.Schema({
     des: { type: String, required: true },
     imgUrl: { type: String, required: true },
     videoUrl: { type: String, required: true },
-    views: { type: Number, default: 0 },
+    views: { type: [String], default: [] },
     tags: { type: [String], default: [] },
     likes: { type: [String], default: [] },
     dislikes: { type: [String], default: [] },
 }, { timestamps: true });
 
-export default mongoose.model('Video', VideoSchema);
+module.exports = mongoose.model('Video', VideoSchema);

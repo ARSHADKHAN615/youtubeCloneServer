@@ -1,6 +1,6 @@
-import CreateNewError from "../middlewares/errorHandling.js";
-import User from "../models/User.js";
-import Video from "../models/Video.js";
+const CreateNewError = require('../middlewares/errorHandling.js');
+const User = require('../models/User.js');
+const Video = require('../models/Video.js');
 
 const VideoController = {
     createVideo: async (req, res, next) => {
@@ -56,8 +56,14 @@ const VideoController = {
     },
     addView: async (req, res, next) => {
         try {
-            await Video.findByIdAndUpdate(req.user.id, {
-                $inc: { views: 1 }
+            // await Video.findByIdAndUpdate(req.user.id, {
+            //     $inc: { views: 1 }
+            // });
+            // res.status(200).json({ message: "views are added" });
+            const VideoId = req.params.videoId;
+            const UserId = req.user.id;
+            await Video.findByIdAndUpdate(VideoId, {
+                $addToSet: { views: UserId },
             });
             res.status(200).json({ message: "views are added" });
         } catch (error) {
@@ -66,7 +72,7 @@ const VideoController = {
     },
     Trending: async (req, res, next) => {
         try {
-            const videos = await Video.find().sort({ views: -1 });
+            const videos = await Video.find().sort({ 'views.length': -1 }).limit(20);
             if (!videos) return next(CreateNewError(404, "Video Not Found"));
             res.status(200).json(videos);
         } catch (error) {
@@ -75,7 +81,7 @@ const VideoController = {
     },
     Random: async (req, res, next) => {
         try {
-            const videos = await Video.aggregate([{ $sample: { size: 1 } }])
+            const videos = await Video.aggregate([{ $sample: { size: 20 } }])
             if (!videos) return next(CreateNewError(404, "Video Not Found"));
             res.status(200).json(videos);
         } catch (error) {
@@ -117,4 +123,4 @@ const VideoController = {
         }
     },
 }
-export default VideoController;
+module.exports = VideoController;

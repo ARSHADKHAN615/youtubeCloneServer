@@ -1,6 +1,6 @@
-import CreateNewError from "../middlewares/errorHandling.js";
-import User from "../models/User.js";
-import Video from "../models/Video.js";
+const CreateNewError = require('../middlewares/errorHandling.js');
+const User = require('../models/User.js');
+const Video = require('../models/Video.js');
 
 const UserController = {
     UpdateUser: async (req, res, next) => {
@@ -23,7 +23,7 @@ const UserController = {
         if (req.params.id === req.user.id) {
             try {
                 await User.findByIdAndDelete(req.params.id)
-                res.status(200).json({message:"User Has been Deleted"});
+                res.status(200).json({ message: "User Has been Deleted" });
             } catch (error) {
                 return next(error);
             }
@@ -37,7 +37,7 @@ const UserController = {
             const user = await User.findById(req.params.id);
             if (!user) return next(CreateNewError(404, "Not Found"));
             const { password, updatedAt, ...other } = user._doc;
-            res.status(200).json(user);
+            res.status(200).json(other);
         } catch (error) {
             return next(error);
         }
@@ -50,7 +50,7 @@ const UserController = {
             await User.findByIdAndUpdate(req.params.id, {
                 $inc: { subscribers: 1 }
             });
-            res.status(200).json({message:"Subscription Successfully"});
+            res.status(200).json({ message: "Subscription Successfully" });
         } catch (error) {
             return next(error);
         }
@@ -63,7 +63,7 @@ const UserController = {
             await User.findByIdAndUpdate(req.params.id, {
                 $inc: { subscribers: -1 }
             });
-            res.status(200).json({message:"UnSubscription Successfully"});
+            res.status(200).json({ message: "UnSubscription Successfully" });
         } catch (error) {
             return next(error);
         }
@@ -76,7 +76,7 @@ const UserController = {
                 $addToSet: { likes: UserId },
                 $pull: { dislikes: UserId }
             });
-            res.status(200).json({message:"Like Successfully"});
+            res.status(200).json({ message: "Like Successfully" });
         } catch (error) {
             return next(error);
         }
@@ -89,10 +89,10 @@ const UserController = {
                 $addToSet: { dislikes: UserId },
                 $pull: { likes: UserId }
             });
-            res.status(200).json({message:"DisLike Successfully"});
+            res.status(200).json({ message: "DisLike Successfully" });
         } catch (error) {
             return next(error);
         }
     }
 }
-export default UserController;
+module.exports = UserController;
